@@ -3,6 +3,8 @@ class DnaSequence:
     def __init__(self, dna_string):
         if self.is_valid_dna(dna_string):
             self.dna_string = dna_string
+        else:
+            print("DNA not valid")
 
     def is_valid_dna(self, str):
         for char in str:
@@ -13,9 +15,10 @@ class DnaSequence:
     def insert(self, nucleotide, index):
         try:
             if nucleotide in 'ACTG':
-                self.dna_string = self.dna_string[:index] + nucleotide + self.dna_string[index:]
-            else:
-                raise TypeError
+                if index <= len(self.dna_string):
+                    self.dna_string = self.dna_string[:index] + nucleotide + self.dna_string[index:]
+                else:
+                    raise IndexError
         except IndexError:
             return "Index out of range"
         except TypeError:
