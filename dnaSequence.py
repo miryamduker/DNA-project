@@ -1,10 +1,37 @@
+counter = 1
+
+
 class DnaSequence:
 
-    def __init__(self, dna_string):
-        if self.is_valid_dna(dna_string):
-            self.dna_string = dna_string
-        else:
+    def __init__(self):
+        self.__dna_id = None
+        self.__dna_name = None
+        self.__dna_string = None
+
+    def insert_values(self, dna_id, dna_name, dna_string):
+        global counter
+        try:
+            if self.is_valid_dna(dna_string):
+                self.__dna_id = dna_id
+                if dna_name is None:
+                    dna_name = "seq{}".format(counter)
+                    counter += 1
+                self.__dna_name = dna_name
+                self.__dna_string = dna_string
+            else:
+                raise ValueError
+        except ValueError:
             print("DNA not valid")
+            return False
+
+    def get_id(self):
+        return self.__dna_id
+
+    def get_name(self):
+        return self.__dna_name
+
+    def get_string(self):
+        return self.__dna_string
 
     def is_valid_dna(self, str):
         for char in str:
@@ -15,47 +42,51 @@ class DnaSequence:
     def insert(self, nucleotide, index):
         try:
             if nucleotide in 'ACTG':
-                if index <= len(self.dna_string):
-                    self.dna_string = self.dna_string[:index] + nucleotide + self.dna_string[index:]
+                if index <= len(self.__dna_string):
+                    self.__dna_string = self.__dna_string[:index] + nucleotide + self.__dna_string[index:]
                 else:
                     raise IndexError
         except IndexError:
-            return "Index out of range"
+            print("Index out of range")
+            return False
         except TypeError:
-            return "Nucleotide should be one of the next chars: A,C,T,G"
+            print("Nucleotide should be one of the next chars: A,C,T,G")
+            return False
 
     def assignment(self, new_dna):
         try:
-            if type(new_dna) is str:
-                if self.is_valid_dna(new_dna):
-                    self.dna_string = new_dna
-                else:
-                    raise TypeError
             if type(new_dna) is DnaSequence:
-                self.dna_string = new_dna.dna_string
+                self.__dna_id = new_dna.dna_id
+                self.__dna_name = new_dna.dna_name
+                self.__dna_string = new_dna.dna_string
+            else:
+                raise TypeError
         except TypeError:
             return "New DNA must be a valid DNA"
 
     def __str__(self):
-        return "DNA is: {}".format(self.dna_string)
+        return "DNA id: {}, name: {}, sequence: {}".format(self.__dna_id, self.__dna_name, self.__dna_string)
 
     def __eq__(self, other):
         try:
-            return self.dna_string == other
+            return self.__dna_id == other.dna_id and self.__dna_name == other.dna_name and self.__dna_string == other.dna_string
         except TypeError:
-            return "Please send a string"
+            print("Please send a valid DNA")
+            return
 
     def __ne__(self, other):
         try:
-            return self.dna_string != other
+            return self.__dna_id != other.dna_id or self.__dna_name == other.dna_name or self.__dna_string != other.dna_string
         except TypeError:
-            return "Please send a string"
+            print("Please send a valid DNA")
+            return
 
     def __getitem__(self, item):
         try:
-            return self.dna_string[item]
+            return self.__dna_string[item]
         except IndexError:
-            return "Index out of range"
+            print("Index out of range")
+            return
 
     def __len__(self):
-        return len(self.dna_string)
+        return len(self.__dna_string)
