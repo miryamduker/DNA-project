@@ -7,6 +7,7 @@ class DnaSequence:
         self.__dna_id = None
         self.__dna_name = None
         self.__dna_string = None
+        self.counter = 0
 
     def insert_values(self, dna_id, dna_name, dna_string):
         global counter
@@ -18,10 +19,10 @@ class DnaSequence:
                     counter += 1
                 self.__dna_name = dna_name
                 self.__dna_string = dna_string
+                return "[{}] {}: {}".format(self.__dna_id, self.__dna_name, self.__dna_string)
             else:
                 raise ValueError
         except ValueError:
-            print("DNA not valid")
             return False
 
     def get_id(self):
@@ -44,6 +45,7 @@ class DnaSequence:
             if nucleotide in 'ACTG':
                 if index <= len(self.__dna_string):
                     self.__dna_string = self.__dna_string[:index] + nucleotide + self.__dna_string[index:]
+                    return "[{}] {}: {}".format(self.__dna_id, self.__dna_name, self.__dna_string)
                 else:
                     raise IndexError
         except IndexError:
@@ -56,9 +58,10 @@ class DnaSequence:
     def assignment(self, new_dna):
         try:
             if type(new_dna) is DnaSequence:
-                self.__dna_id = new_dna.dna_id
-                self.__dna_name = new_dna.dna_name
-                self.__dna_string = new_dna.dna_string
+                self.__dna_id = new_dna.__dna_id
+                self.__dna_name = new_dna.__dna_name
+                self.__dna_string = new_dna.__dna_string
+                return "[{}] {}: {}".format(self.__dna_id, self.__dna_name, self.__dna_string)
             else:
                 raise TypeError
         except TypeError:

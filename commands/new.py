@@ -1,4 +1,5 @@
-from DNAs_data import data, insert_data
+from DNAs_data import insert_data
+from functions import get_name
 
 
 class New:
@@ -13,10 +14,11 @@ class New:
             if len(arg_list) > 2:
                 raise ValueError
             if len(arg_list) == 2:
-                new_name = arg_list[1].replace("@", "")
+                new_name = get_name(arg_list[1])
             if insert_data(new_name, new_string):
                 return True
             else:
                 raise ValueError
         except ValueError:
+            print("Args not valid")
             return False

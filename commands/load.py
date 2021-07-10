@@ -1,4 +1,5 @@
 from DNAs_data import insert_data
+from functions import get_name
 
 
 class Load:
@@ -13,7 +14,7 @@ class Load:
             if len(arg_list) > 2:
                 raise ValueError
             if len(arg_list) == 2:
-                new_name = arg_list[1].replace("@", "")
+                new_name = get_name(arg_list[1])
             file = open(file_path,'r')
             new_string = file.read()
             file.close()
@@ -21,4 +22,7 @@ class Load:
                 return True
             raise ValueError
         except ValueError:
+            print("Args not valid")
             return False
+        except:
+            print("Error, check file name")
