@@ -1,5 +1,9 @@
+from commands.count import Count
 from commands.delete import Delete
 from commands.dup import Dup
+from commands.find import Find
+from commands.find_all import FindAll
+from commands.len import Len
 from commands.load import Load
 from commands.new import New
 from commands.replace import Replace
@@ -11,23 +15,22 @@ class Controller:
     def __init__(self, command, args):
         self.__command = command
         self.__args = args
+        self.commands={
+            'new':New(self.__args),
+            'load': Load(self.__args),
+            'dup': Dup(self.__args),
+            'slice': Slice(self.__args),
+            'replace': Replace(self.__args),
+            'save': Save(self.__args),
+            'del': Delete(self.__args),
+            'find':Find(self.__args),
+            'findall': FindAll(self.__args),
+            'len': Len(self.__args),
+            'count': Count(self.__args)
+        }
 
     def execute_command(self):
-        command = None
-        if self.__command == 'new':
-            command = New(self.__args)
-        elif self.__command == 'load':
-            command = Load(self.__args)
-        elif self.__command == 'dup':
-            command = Dup(self.__args)
-        elif self.__command == 'slice':
-            command = Slice(self.__args)
-        elif self.__command == 'replace':
-            command = Replace(self.__args)
-        elif self.__command == 'save':
-            command = Save(self.__args)
-        elif self.__command == 'del':
-            command = Delete(self.__args)
+        command=self.commands[self.__command]
         if command is not None:
             command.execute()
             return

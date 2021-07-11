@@ -1,13 +1,14 @@
+from commands.command import Command
 from functions import get_item
 
 
-class Save:
-    def __init__(self, seq):
-        self.__seq = seq
+class Save(Command):
+    def __init__(self, args):
+        super().__init__(args)
 
     def execute(self):
         try:
-            arg_list = self.__seq.split()
+            arg_list = self.args.split()
             dna_item = get_item(arg_list[0])
             file_name = ""
             if len(arg_list) < 2:

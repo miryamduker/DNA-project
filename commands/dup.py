@@ -1,14 +1,15 @@
-from DNAs_data import get_dna_by_id, insert_data
-from functions import get_name, get_item
+from DNAs_data import insert_data
+from commands.command import Command
+from functions import get_name, get_item, check_function_name
 
 
-class Dup:
+class Dup(Command):
     def __init__(self, args):
-        self.__args = args
+        super().__init__(args)
 
     def execute(self):
         try:
-            arg_list = self.__args.split()
+            arg_list = self.args.split()
             new_name = None
             if len(arg_list) > 2:
                 raise ValueError
@@ -16,8 +17,11 @@ class Dup:
                 new_name = get_name(arg_list[1])
             dna_item = get_item(arg_list[0])
             if new_name is None:
+                dna_name = dna_item.get_name() + '_{}'.format(dna_item.counter)
+                while not check_function_name(dna_name):
+                    dna_item.counter += 1
+                    dna_name = dna_item.get_name() + '_{}'.format(dna_item.counter)
                 dna_item.counter += 1
-                new_name = dna_item.get_name() + '_{}'.format(dna_item.counter)
             new_string = dna_item.get_string()
             if insert_data(new_name, new_string):
                 return True

@@ -1,15 +1,16 @@
 from DNAs_data import insert_data
+from commands.command import Command
 from dnaSequence import DnaSequence
 from functions import get_id, get_name, get_item
 
 
-class Slice:
+class Slice(Command):
     def __init__(self, args):
-        self.__args = args
+        super().__init__(args)
 
     def execute(self):
         try:
-            arg_list = self.__args.split()
+            arg_list = self.args.split()
             if len(arg_list) < 3:
                 return False
             dna_item = get_item(arg_list[0])

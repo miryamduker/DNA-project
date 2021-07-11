@@ -1,3 +1,5 @@
+# from functions import check_function_name
+
 counter = 1
 
 
@@ -16,6 +18,9 @@ class DnaSequence:
                 self.__dna_id = dna_id
                 if dna_name is None:
                     dna_name = "seq{}".format(counter)
+                    # while not check_function_name(dna_name):
+                    #     counter += 1
+                    #     dna_name = "seq{}".format(counter)
                     counter += 1
                 self.__dna_name = dna_name
                 self.__dna_string = dna_string
