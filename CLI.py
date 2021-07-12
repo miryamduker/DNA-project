@@ -1,4 +1,4 @@
-from controller import Controller
+from controllers.controller import Controller
 
 
 def main():
@@ -7,7 +7,10 @@ def main():
             print("> cmd >>>", end="")
             cmd_input = input()
             words = cmd_input.split(" ", 1)
-            controller = Controller(words[0], words[1])
+            if len(words) == 1:
+                controller = Controller(words[0], None)
+            else:
+                controller = Controller(words[0], words[1])
             controller.execute_command()
         except:
             print("Command not valid")
