@@ -19,7 +19,11 @@ class DnaSequence:
                     counter += 1
                 self.__dna_name = dna_name
                 self.__dna_string = dna_string
-                return "[{}] {}: {}".format(self.__dna_id, self.__dna_name, self.__dna_string)
+                if len(self.__dna_string) > 40:
+                    sq = self.__dna_string[:40] + "..." + self.__dna_string[-3:]
+                else:
+                    sq = self.__dna_string
+                return "[{}] {}: {}".format(self.__dna_id, self.__dna_name, sq)
             else:
                 raise ValueError
         except ValueError:
@@ -45,7 +49,11 @@ class DnaSequence:
             if nucleotide in 'ACTG':
                 if index <= len(self.__dna_string):
                     self.__dna_string = self.__dna_string[:index] + nucleotide + self.__dna_string[index:]
-                    print("[{}] {}: {}".format(self.__dna_id, self.__dna_name, self.__dna_string))
+                    if len(self.__dna_string) > 40:
+                        sq = self.__dna_string[:40] + "..." + self.__dna_string[-3:]
+                    else:
+                        sq = self.__dna_string
+                    print("[{}] {}: {}".format(self.__dna_id, self.__dna_name, sq))
                 else:
                     raise IndexError
         except IndexError:
@@ -68,7 +76,11 @@ class DnaSequence:
             return "New DNA must be a valid DNA"
 
     def __str__(self):
-        return "DNA id: {}, name: {}, sequence: {}".format(self.__dna_id, self.__dna_name, self.__dna_string)
+        if len(self.__dna_string) > 40:
+            sq = self.__dna_string[:40] + "..." + self.__dna_string[-3:]
+        else:
+            sq = self.__dna_string
+        return "DNA id: {}, name: {}, sequence: {}".format(self.__dna_id, self.__dna_name, sq)
 
     def __eq__(self, other):
         try:
