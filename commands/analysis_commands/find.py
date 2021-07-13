@@ -16,7 +16,6 @@ class Find(Command):
                 sq = get_item(self.arg_list[1]).get_string()
             index = dna.get_string().find(sq)
             if index >= 0:
-                print(index)
                 return
             print("Couldn't find sequence")
             return

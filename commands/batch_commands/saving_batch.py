@@ -13,9 +13,10 @@ class SaveBatch:
             if len(arg_list) == 2:
                 file_name = arg_list[1] + '.dnabatch'
             elif len(arg_list) == 1:
-                file_name = get_name(arg_list[0])
+                file_name = get_name(arg_list[0])+ '.dnabatch'
             else:
                 raise ValueError
+            print(file_name)
             f = open(file_name, "w")
             for command in str_batch.get(get_name(arg_list[0])):
                 f.write(command+'\n')

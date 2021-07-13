@@ -17,7 +17,7 @@ class Batch:
             print("> batch >>>", end="")
             batch_input = input().split()
             commands = []
-            commands_str=[]
+            commands_str = []
             while batch_input[0] != "end":
                 commands.append(get_command(batch_input[0], ''.join(batch_input[1:])))
                 batch[self.name] = commands

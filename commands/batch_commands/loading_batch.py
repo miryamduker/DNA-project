@@ -10,7 +10,7 @@ class LoadBatch:
     def execute(self):
         try:
             arg_list = self.args.split()
-            file_name = arg_list[0]
+            file_name = get_name(arg_list[0])
             batch_name = None
             if len(arg_list) == 2:
                 batch_name = get_name(arg_list[1])
@@ -20,10 +20,10 @@ class LoadBatch:
                 raise ValueError
             commands = []
             commands_str = []
-            print(file_name)
             file = open(file_name, 'r')
             for line in file:
-                commands.append(get_command(line[0], line[1:]))
+                line = line.split()
+                commands.append(get_command(line[0],  " ".join(line[1:])))
                 commands_str.append(line)
             file.close()
             batch[batch_name] = commands
