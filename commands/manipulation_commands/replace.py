@@ -1,7 +1,7 @@
 from commands.command import Command
 from datas.data_handler import insert_data
 from dnaSequence import DnaSequence
-from commands.command_handler import get_item, get_name, name_or_id, check_function_name
+from commands.command_handler import get_item, get_name, name_or_id, check_dna_name
 
 
 class Replace(Command):

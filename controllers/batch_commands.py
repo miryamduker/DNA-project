@@ -7,6 +7,11 @@ from commands.batch_commands.showing_batch import ShowingBatch
 
 
 def get_batch_command(command, args):
+    """
+    :param command: name of command
+    :param args: of the command
+    :return: an object from the type of the command name
+    """
     batch_commands = {
         "batch": Batch(args),
         "run": RunBatch(args),

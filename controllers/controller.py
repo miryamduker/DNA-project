@@ -8,6 +8,9 @@ class Controller:
         self.args = args
 
     def execute_command(self):
+        """
+        sets command to be an object from the type of the command name and executes it
+        """
         try:
             command = get_command(self.command_name, self.args)
             if command is not None:

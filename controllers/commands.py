@@ -12,6 +12,11 @@ from commands.manipulation_commands.slice import Slice
 
 
 def get_command(command, args):
+    """
+        :param command: name of command
+        :param args: of the command
+        :return: an object from the type of the command name
+        """
     commands = {
         'new': New(args),
         'load': Load(args),
